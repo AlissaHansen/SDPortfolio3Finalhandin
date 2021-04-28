@@ -48,7 +48,7 @@ public class StudentModel {
         return StudentNumbers;
     }
     public void PreparedStmtStudentQuery() {
-        String sql = "Select Students.StudentNo, FirstName, LastName, GradeES, GradeSD  FROM Students" +
+        String sql = "Select Students.StudentNo, FirstName, LastName, GradeES, GradeSD, Average  FROM Students" +
                 " INNER JOIN GRADES" +
                 " ON Students.StudentNo = Grades.StudentNo WHERE Students.StudentNo =?;";
 
@@ -71,7 +71,7 @@ public class StudentModel {
                 System.out.println("No records fetched.");
             while(rs != null && rs.next()) {
                 StudentInformationList.add(new StudentInfo(rs.getInt(1), rs.getString(2), rs.getString(3),
-                        rs.getInt(4), rs.getInt(5)));
+                        rs.getInt(4), rs.getInt(5), rs.getDouble(6)));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -127,4 +127,17 @@ public class StudentModel {
 
         return CourseInformationList;
     }
+    public void PreparedStmtInsertGrade(int StudentID, int Grade) {
+        String sql = "UPDATE Grades" +
+                " SET GradeSD = " + Grade +
+                " WHERE StudentNo = " + StudentID + " AND GradeSD IS NULL;";
+
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 }

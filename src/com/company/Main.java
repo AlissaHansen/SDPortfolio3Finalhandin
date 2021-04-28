@@ -8,7 +8,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        String url = "jdbc:sqlite:/Users/alissahansen/IdeaProjects/portfolio3/StudentDatabase.db";
+        String url = "jdbc:sqlite:C:/Users/Bandit/Desktop/RUC/Kurser/SD/SDPortfolio3Finalhandin/StudentDatabase.db";
         StudentModel SDB = new StudentModel(url);
         StudentController control = new StudentController(SDB);
         StudentView view = new StudentView(control);
